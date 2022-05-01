@@ -1,0 +1,20 @@
+<div class="board">
+  <div class="list" *ngFor="let list of LISTS">
+    <div class="title">{{ list.title }}</div>
+
+    <div class="items">
+      <div class="item" *ngFor="let item of list.items">
+        <div>{{ item.title }}</div>
+        <div class="assign-to">{{ item.assignTo.username }}</div>
+      </div>
+    </div>
+
+    <div class="item add-item">
+      <button pButton type="button" label="Add item" icon="pi pi-plus" class="p-button-sm"></button>
+    </div>
+  </div>
+
+  <div class="list add-list">
+    <button pButton type="button" label="Add list" icon="pi pi-plus" class="p-button-sm"></button>
+  </div>
+</div>

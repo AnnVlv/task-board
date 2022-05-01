@@ -1,0 +1,67 @@
+.board {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  margin-top: 20px;
+  padding: 1rem;
+  display: flex;
+  overflow-x: auto;
+
+  .list {
+    border: 1px solid #dee2e6;
+    padding: 1rem;
+    margin-right: 20px;
+    min-width: 300px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &.add-list {
+      border: none;
+
+      ::ng-deep button {
+        display: flex;
+        margin: 0 auto;
+      }
+    }
+
+    .title {
+      text-align: center;
+    }
+
+    .items {
+      margin-top: 20px;
+      font-size: 14px;
+      overflow-y: auto;
+      max-height: calc(100vh - 260px);
+
+      .item {
+        margin-bottom: 10px;
+        border: 1px solid #dee2e6;
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+
+        .assign-to {
+          font-size: 12px;
+          position: relative;
+          top: 5px;
+        }
+      }
+    }
+
+    .add-item {
+      padding-top: 10px;
+
+      ::ng-deep button {
+        display: flex;
+        margin: 0 auto;
+      }
+    }
+  }
+}
