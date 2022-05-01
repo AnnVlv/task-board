@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { TaskBoardComponent } from './task-board.component';
+
+const routes: Routes = [
+  { path: '', component: TaskBoardComponent },
+];
 
 @NgModule({
   imports: [
-    RouterModule.forChild([]),
+    RouterModule.forChild(routes),
   ],
   exports: [RouterModule],
 })

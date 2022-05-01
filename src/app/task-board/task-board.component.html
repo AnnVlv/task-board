@@ -1,0 +1,16 @@
+<app-header></app-header>
+
+<div class="board">
+  <div class="list" *ngFor="let list of LISTS">
+    <div class="title">{{ list.title }}</div>
+
+    <div class="items">
+      <div class="item" *ngFor="let items of list.items">
+        {{ items.title }}
+      </div>
+    </div>
+  </div>
+  <div class="list add-list">
+    <p-button icon="pi pi-plus" label="Add list"></p-button>
+  </div>
+</div>

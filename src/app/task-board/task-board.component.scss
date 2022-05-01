@@ -1,0 +1,43 @@
+.board {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  margin-top: 20px;
+  padding: 1rem;
+  display: flex;
+  overflow-x: auto;
+  max-height: calc(100vh - 108px) !important;
+
+  .list {
+    border: 1px solid #dee2e6;
+    padding: 1rem;
+    margin-right: 20px;
+    min-width: 300px;
+    overflow-y: auto;
+
+    &.add-list ::ng-deep button {
+      display: flex;
+      margin: 0 auto;
+      min-width: 140px;
+    }
+
+    .title {
+
+    }
+
+    .items {
+      margin-top: 20px;
+      font-size: 14px;
+
+      .item {
+        margin-bottom: 10px;
+        border: 1px solid #dee2e6;
+        padding: 1rem;
+        cursor: pointer;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
