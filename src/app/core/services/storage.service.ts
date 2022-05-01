@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { User } from '../../shared/models';
+import { List, User } from '../../shared/models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +12,14 @@ export class StorageService {
 
   public saveUser(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  public readLists(): List[] | null {
+    const data = localStorage.getItem('lists');
+    return data ? JSON.parse(data) : null;
+  }
+
+  public saveLists(lists: List[]): void {
+    localStorage.setItem('lists', JSON.stringify(lists));
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { LISTS } from 'src/app/data/lists';
-import { Item } from '../../../shared/models';
+import { Item, List } from '../../../shared/models';
 import { USERS } from '../../../data';
+import { ListsService } from '../../../core/services';
 
 @Component({
   selector: 'app-board',
@@ -11,7 +11,6 @@ import { USERS } from '../../../data';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  public LISTS = LISTS;
   public USERS = USERS;
 
   public addListDialogVisible = false;
@@ -24,11 +23,15 @@ export class BoardComponent implements OnInit {
     assignTo: new FormControl('', [Validators.required]),
   });
 
+  public get lists(): List[] {
+    return this.listsService.lists;
+  }
+
   public get newItem(): Partial<Item> {
     return this.newItemForm.value;
   }
 
-  constructor() { }
+  constructor(private readonly listsService: ListsService) { }
 
   public ngOnInit(): void {
   }
@@ -39,11 +42,13 @@ export class BoardComponent implements OnInit {
 
   public closeAddListDialog(canceled: boolean): void {
     if (!canceled) {
-      this.LISTS.push({
-        id: this.LISTS.length + 1,
+      this.lists.push({
+        id: this.lists.length + 1,
         title: this.newListTitle.value,
         items: [],
       });
+
+      this.listsService.listsWasUpdated$.next();
     }
 
     this.newListTitle.reset();
@@ -56,12 +61,14 @@ export class BoardComponent implements OnInit {
 
   public closeAddItemDialog(canceled: boolean): void {
     if (!canceled) {
-      const list = this.LISTS.find(list => list.id === this.listIdToAddingItem);
+      const list = this.lists.find(list => list.id === this.listIdToAddingItem);
 
       list?.items.push({
         ...this.newItem,
         id: list.items.length + 1,
       } as Item);
+
+      this.listsService.listsWasUpdated$.next();
     }
 
     this.newItemForm.reset();
