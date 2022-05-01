@@ -10,7 +10,7 @@ export class StorageService {
     return JSON.parse(localStorage.getItem('user') || '') || null;
   }
 
-  public saveUser(user: User): void {
+  public saveUser(user: User | null): void {
     localStorage.setItem('user', JSON.stringify(user));
   }
 

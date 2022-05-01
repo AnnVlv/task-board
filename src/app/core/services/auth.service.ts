@@ -33,4 +33,9 @@ export class AuthService {
 
     return this.isAuth;
   }
+
+  public logout(): void {
+    this.user = null;
+    this.storageService.saveUser(this.user);
+  }
 }

@@ -9,5 +9,6 @@
 
   <div class="p-toolbar-group-right">
     <p-button *ngIf="username" [label]="username"></p-button>
+    <button (click)="logout()" pButton type="button" icon="pi pi-chevron-right" class="logout p-button-raised p-button-rounded"></button>
   </div>
 </p-toolbar>
