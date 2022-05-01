@@ -15,6 +15,17 @@
   </div>
 
   <div class="list add-list">
-    <button pButton type="button" label="Add list" icon="pi pi-plus" class="p-button-sm"></button>
+    <button pButton type="button" label="Add list" icon="pi pi-plus" class="p-button-sm" (click)="openAddListDialog()"></button>
   </div>
 </div>
+
+<p-dialog header="Add new list" [(visible)]="addListDialogVisible">
+  <div class="add-list-dialog">
+    <input [formControl]="newListTitle" type="text" pInputText>
+
+    <div class="actions">
+      <button pButton type="button" label="Close" class="p-button-sm" (click)="closeAddListDialog(true)"></button>
+      <button pButton type="button" label="Add" class="p-button-sm" [disabled]="newListTitle.invalid" (click)="closeAddListDialog(false)"></button>
+    </div>
+  </div>
+</p-dialog>

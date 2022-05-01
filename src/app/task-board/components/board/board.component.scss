@@ -65,3 +65,21 @@
     }
   }
 }
+
+.add-list-dialog {
+  width: 300px;
+
+  input {
+    width: 100%;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    ::ng-deep button:first-of-type {
+      margin-right: 20px;
+    }
+  }
+}
