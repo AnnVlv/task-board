@@ -81,8 +81,17 @@
       margin-right: 20px;
     }
   }
-}
 
-.add-list-dialog {
-  width: 300px;
+  &.add-list-dialog {
+    width: 300px;
+  }
+
+  &.item-dialog {
+    min-width: 300px;
+
+    .assign-to {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  }
 }

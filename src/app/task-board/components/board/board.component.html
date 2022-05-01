@@ -3,7 +3,7 @@
     <div class="title">{{ list.title }}</div>
 
     <div class="items">
-      <div class="item" *ngFor="let item of list.items">
+      <div class="item" *ngFor="let item of list.items" (click)="openItemDialog(item)">
         <div>{{ item.title }}</div>
         <div class="assign-to">{{ item.assignTo.username }}</div>
       </div>
@@ -52,5 +52,12 @@
       <button pButton type="button" label="Close" class="p-button-sm" (click)="closeAddItemDialog(true)"></button>
       <button pButton type="button" label="Add" class="p-button-sm" [disabled]="newItemForm.invalid" (click)="closeAddItemDialog(false)"></button>
     </div>
+  </div>
+</p-dialog>
+
+<p-dialog [header]="activeItem?.title || ''" [(visible)]="activeItem">
+  <div class="dialog item-dialog">
+    <div>{{ activeItem?.content }}</div>
+    <div class="assign-to">Assigned to: <b>{{ activeItem?.assignTo?.username }}</b></div>
   </div>
 </p-dialog>

@@ -15,6 +15,7 @@ export class BoardComponent implements OnInit {
 
   public addListDialogVisible = false;
   public listIdToAddingItem: number | null = null;
+  public activeItem: Item | null = null;
 
   public newListTitle = new FormControl('', [Validators.required]);
   public newItemForm = new FormGroup({
@@ -73,5 +74,9 @@ export class BoardComponent implements OnInit {
 
     this.newItemForm.reset();
     this.listIdToAddingItem = null;
+  }
+
+  public openItemDialog(item: Item): void {
+    this.activeItem = item;
   }
 }
