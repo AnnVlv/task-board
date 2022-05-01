@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { USERS } from 'src/app/data';
 import { Login, User } from '../../shared/models';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,11 @@ export class AuthService {
     return !!this.user;
   }
 
-  constructor() { }
+  constructor(private readonly storageService: StorageService) { }
+
+  public init(): void {
+    this.user = this.storageService.readUser();
+  }
 
   public login({ username, password }: Login): boolean {
     const user = this.USERS
@@ -23,6 +28,7 @@ export class AuthService {
 
     if (user) {
       this.user = user;
+      this.storageService.saveUser(user);
     }
 
     return this.isAuth;
