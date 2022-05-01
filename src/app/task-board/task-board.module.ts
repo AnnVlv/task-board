@@ -6,6 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 import { TaskBoardRoutingModule } from './task-board-routing.module';
 import { TaskBoardComponent } from './task-board.component';
@@ -26,6 +28,8 @@ import { BoardComponent } from './components/board/board.component';
     DialogModule,
     ReactiveFormsModule,
     InputTextModule,
+    InputTextareaModule,
+    CascadeSelectModule,
   ]
 })
 export class TaskBoardModule { }

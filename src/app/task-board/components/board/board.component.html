@@ -10,7 +10,7 @@
     </div>
 
     <div class="item add-item">
-      <button pButton type="button" label="Add item" icon="pi pi-plus" class="p-button-sm"></button>
+      <button pButton type="button" label="Add item" icon="pi pi-plus" class="p-button-sm" (click)="openAddItemDialog(list.id)"></button>
     </div>
   </div>
 
@@ -20,12 +20,37 @@
 </div>
 
 <p-dialog header="Add new list" [(visible)]="addListDialogVisible">
-  <div class="add-list-dialog">
+  <div class="dialog add-list-dialog">
     <input [formControl]="newListTitle" type="text" pInputText>
 
     <div class="actions">
       <button pButton type="button" label="Close" class="p-button-sm" (click)="closeAddListDialog(true)"></button>
       <button pButton type="button" label="Add" class="p-button-sm" [disabled]="newListTitle.invalid" (click)="closeAddListDialog(false)"></button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog header="Add new item" [(visible)]="listIdToAddingItem">
+  <div class="dialog">
+    <form [formGroup]="newItemForm">
+      <div class="select-wrapper">
+        <p-cascadeSelect
+          formControlName="assignTo"
+          [options]="USERS"
+          optionLabel="username"
+          [optionGroupChildren]="[]"
+          [style]="{'minWidth': '100%'}"
+        ></p-cascadeSelect>
+      </div>
+
+      <input formControlName="title" type="text" pInputText>
+
+      <textarea formControlName="content" pInputTextarea></textarea>
+    </form>
+
+    <div class="actions">
+      <button pButton type="button" label="Close" class="p-button-sm" (click)="closeAddItemDialog(true)"></button>
+      <button pButton type="button" label="Add" class="p-button-sm" [disabled]="newItemForm.invalid" (click)="closeAddItemDialog(false)"></button>
     </div>
   </div>
 </p-dialog>
