@@ -32,7 +32,7 @@
 
 <p-dialog header="Add new item" [(visible)]="listIdToAddingItem">
   <div class="dialog">
-    <form [formGroup]="newItemForm">
+    <form [formGroup]="itemForm">
       <div class="select-wrapper">
         <p-cascadeSelect
           formControlName="assignTo"
@@ -50,14 +50,43 @@
 
     <div class="actions">
       <button pButton type="button" label="Close" class="p-button-sm" (click)="closeAddItemDialog(true)"></button>
-      <button pButton type="button" label="Add" class="p-button-sm" [disabled]="newItemForm.invalid" (click)="closeAddItemDialog(false)"></button>
+      <button pButton type="button" label="Add" class="p-button-sm" [disabled]="itemForm.invalid" (click)="closeAddItemDialog(false)"></button>
     </div>
   </div>
 </p-dialog>
 
 <p-dialog [header]="activeItem?.title || ''" [(visible)]="activeItem">
   <div class="dialog item-dialog">
-    <div>{{ activeItem?.content }}</div>
-    <div class="assign-to">Assigned to: <b>{{ activeItem?.assignTo?.username }}</b></div>
+    <ng-container *ngIf="!activeItemEditing">
+      <div>{{ activeItem?.content }}</div>
+      <div class="edit-block">
+        <div class="assign-to">Assigned to: <b>{{ activeItem?.assignTo?.username }}</b></div>
+        <button pButton type="button" label="Edit" class="edit p-button-sm" (click)="editItemHandler()"></button>
+        <button pButton type="button" label="Close" class="close p-button-sm" (click)="closeItemDialog()"></button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeItemEditing">
+      <form [formGroup]="itemForm">
+        <div class="select-wrapper">
+          <p-cascadeSelect
+            formControlName="assignTo"
+            [options]="USERS"
+            optionLabel="username"
+            [optionGroupChildren]="[]"
+            [style]="{'minWidth': '100%'}"
+          ></p-cascadeSelect>
+        </div>
+
+        <input formControlName="title" type="text" pInputText>
+
+        <textarea formControlName="content" pInputTextarea></textarea>
+      </form>
+
+      <div class="actions">
+        <button pButton type="button" label="Cancel" class="p-button-sm" (click)="closeEditingItemMode(true)"></button>
+        <button pButton type="button" label="Save" class="p-button-sm" [disabled]="itemForm.invalid" (click)="closeEditingItemMode(false)"></button>
+      </div>
+    </ng-container>
   </div>
 </p-dialog>

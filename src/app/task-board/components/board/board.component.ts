@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { ListsService } from '../../../core/services';
 import { Item, List } from '../../../shared/models';
 import { USERS } from '../../../data';
-import { ListsService } from '../../../core/services';
 
 @Component({
   selector: 'app-board',
@@ -16,9 +16,10 @@ export class BoardComponent implements OnInit {
   public addListDialogVisible = false;
   public listIdToAddingItem: number | null = null;
   public activeItem: Item | null = null;
+  public activeItemEditing = false;
 
   public newListTitle = new FormControl('', [Validators.required]);
-  public newItemForm = new FormGroup({
+  public itemForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     content: new FormControl('', [Validators.required]),
     assignTo: new FormControl('', [Validators.required]),
@@ -29,7 +30,7 @@ export class BoardComponent implements OnInit {
   }
 
   public get newItem(): Partial<Item> {
-    return this.newItemForm.value;
+    return this.itemForm.value;
   }
 
   constructor(private readonly listsService: ListsService) { }
@@ -72,11 +73,34 @@ export class BoardComponent implements OnInit {
       this.listsService.listsWasUpdated$.next();
     }
 
-    this.newItemForm.reset();
+    this.itemForm.reset();
     this.listIdToAddingItem = null;
   }
 
   public openItemDialog(item: Item): void {
     this.activeItem = item;
+  }
+
+  public closeItemDialog(): void {
+    this.activeItem = null;
+  }
+
+  public editItemHandler(): void {
+    this.activeItemEditing = true;
+    this.itemForm.patchValue({ ...this.activeItem });
+  }
+
+  public closeEditingItemMode(canceled: boolean): void {
+    if (!canceled) {
+      Object.keys(this.newItem).forEach(key => {
+        // @ts-ignore
+        this.activeIte[key] = this.newItem[key];
+      });
+
+      this.listsService.listsWasUpdated$.next();
+    }
+
+    this.activeItemEditing = false;
+    this.itemForm.reset();
   }
 }

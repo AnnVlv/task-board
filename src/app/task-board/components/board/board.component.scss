@@ -66,6 +66,10 @@
   }
 }
 
+::ng-deep .p-dialog-header-icons {
+  display: none !important;
+}
+
 .dialog {
   input, textarea, .select-wrapper {
     width: 100%;
@@ -87,11 +91,29 @@
   }
 
   &.item-dialog {
-    min-width: 300px;
+    min-width: 430px;
 
-    .assign-to {
+    .edit-block {
       margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
       font-size: 14px;
+
+      button {
+        min-width: 67px;
+
+        &.edit {
+          position: absolute;
+          right: 20px;
+          top: 60px;
+        }
+
+        &.close {
+          position: absolute;
+          right: 20px;
+          top: 20px;
+        }
+      }
     }
   }
 }
