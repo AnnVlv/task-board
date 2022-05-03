@@ -103,4 +103,43 @@ export class BoardComponent implements OnInit {
     this.activeItemEditing = false;
     this.itemForm.reset();
   }
+
+  public onDragOver(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  public onDragStart(event: DragEvent, listId: number, itemId: number): void {
+    event.dataTransfer?.setData('listId', listId.toString());
+    event.dataTransfer?.setData('itemId', itemId.toString());
+  }
+
+  public onDrop(event: DragEvent, listId: number): void {
+    const listIdStart = Number(event.dataTransfer?.getData('listId'));
+    const itemIdStart = Number(event.dataTransfer?.getData('itemId'));
+    const itemId = Number((event.target as any).id);
+
+    if (!listIdStart || !itemIdStart || !listId || !itemId) {
+      return;
+    }
+
+    const listStart = this.lists.find(list => list.id === listIdStart);
+    const list = this.lists.find(list => list.id === listId);
+    if (!listStart || !list) {
+      return;
+    }
+
+    const itemToMove = listStart.items.find(item => item.id === itemIdStart);
+    if (!itemToMove) {
+      return;
+    }
+
+    listStart.items = listStart.items.filter(item => item !== itemToMove);
+
+    const droppedItemIndex = list.items.findIndex(item => item.id === itemId);
+    list.items = [
+      ...list.items.slice(0, droppedItemIndex),
+      itemToMove,
+      ...list.items.slice(droppedItemIndex),
+    ];
+  }
 }

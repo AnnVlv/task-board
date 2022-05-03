@@ -2,8 +2,17 @@
   <div class="list" *ngFor="let list of lists">
     <div class="title">{{ list.title }}</div>
 
-    <div class="items">
-      <div class="item" *ngFor="let item of list.items" (click)="openItemDialog(item)">
+    <div class="items"
+         (dragover)="onDragOver($event)"
+         (drop)="onDrop($event, list.id)"
+    >
+      <div class="item"
+           *ngFor="let item of list.items"
+           (click)="openItemDialog(item)"
+           (dragstart)="onDragStart($event, list.id, item.id)"
+           draggable="true"
+           [id]="item.id"
+      >
         <div>{{ item.title }}</div>
         <div class="assign-to">{{ item.assignTo.username }}</div>
       </div>
