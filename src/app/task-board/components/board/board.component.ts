@@ -39,7 +39,9 @@ export class BoardComponent implements OnInit {
   }
 
   public openAddListDialog(): void {
-    this.addListDialogVisible = true;
+    if (!this.activeItem && !this.listIdToAddingItem) {
+      this.addListDialogVisible = true;
+    }
   }
 
   public closeAddListDialog(canceled: boolean): void {
@@ -58,7 +60,9 @@ export class BoardComponent implements OnInit {
   }
 
   public openAddItemDialog(listId: number): void {
-    this.listIdToAddingItem = listId;
+    if (!this.activeItem && !this.listIdToAddingItem) {
+      this.listIdToAddingItem = listId;
+    }
   }
 
   public closeAddItemDialog(canceled: boolean): void {
@@ -78,7 +82,9 @@ export class BoardComponent implements OnInit {
   }
 
   public openItemDialog(item: Item): void {
-    this.activeItem = item;
+    if (!this.activeItem && !this.listIdToAddingItem) {
+      this.activeItem = item;
+    }
   }
 
   public closeItemDialog(): void {
@@ -141,5 +147,7 @@ export class BoardComponent implements OnInit {
       itemToMove,
       ...list.items.slice(droppedItemIndex),
     ];
+
+    this.listsService.listsWasUpdated$.next();
   }
 }
